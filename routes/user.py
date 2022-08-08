@@ -6,3 +6,18 @@ user = APIRouter()
 def helloworld():
     return "Hola Mundo!!!"
 
+@user.get("/users")
+def helloworld():
+    return "Hola Mundo!!!"
+
+@user.get("/users")
+def helloworld():
+    return "Hola Mundo!!!"
+
+@user.get("/users")
+def helloworld():
+    return "Hola Mundo!!!"
+
+@user.get("/users")
+def helloworld():
+    return "Hola Mundo!!!"
