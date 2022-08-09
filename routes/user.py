@@ -1,13 +1,24 @@
 from fastapi import APIRouter #permite definir las rutas por separado
+from config.db import conn
+from models.user import users
+from schemas.user import User
+from cryptography.fernet import Fernet #permite genrar una func que permite cifrar
+
+key=Fernet.generate_key()
+f=Fernet(key)
 
 user = APIRouter()
 
 @user.get("/users")
-def helloworld():
-    return "Hola Mundo!!!"
+def get_users():
+    return conn.execute(users.select()).fetchall()
 
-@user.get("/users")
-def helloworld():
+@user.post("/users")
+def create_user(user: User):
+    new_user = {"name": user.name, "email": user.email}
+    new_user["password"] = f.encrypt(user.password.encode("utf-8"))
+    result=conn.execute(users.insert().values(new_user))
+    print(result)
     return "Hola Mundo!!!"
 
 @user.get("/users")

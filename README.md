@@ -4,3 +4,4 @@ Pasos que segui:
 - instalar sqlalchemy
 - instalar pymsql para interactuar con base de datos
 - instalar XAMPP para usar una db sql
+- instalar MySQL
