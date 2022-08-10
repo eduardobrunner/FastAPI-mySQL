@@ -33,6 +33,8 @@ def delete_user(id: str):
     result = conn.execute(users.delete().where(users.c.id == id))
     return Response(status_code = HTTP_204_NO_CONTENT)
 
-@user.get("/users")
-def helloworld():
-    return "Hola Mundo!!!"
+@user.put("/users/{id}")
+def update_user(id: str, user:User):
+    conn.execute(users.update().values(name=user.name,
+                email=user.email, password=user.password).where(users.c.id==id))
+    return "updated"
