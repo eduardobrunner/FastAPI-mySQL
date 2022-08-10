@@ -22,9 +22,9 @@ def create_user(user: User):
                                                                                   #el id del usuario guardado
                                                                                   #y devuelve el objeto del
                                                                                   # objeto q ha guardado      
-@user.get("/users")
-def helloworld():
-    return "Hola Mundo!!!"
+@user.get("/users/{id}")
+def helloworld(id: str):
+    return conn.execute(users.select().where(users.c.id == id)).first()
 
 @user.get("/users")
 def helloworld():
