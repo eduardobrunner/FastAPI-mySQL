@@ -1,8 +1,9 @@
-from fastapi import APIRouter #permite definir las rutas por separado
+from fastapi import APIRouter, Response #APIRouter permite definir las rutas por separado
 from config.db import conn
 from models.user import users
 from schemas.user import User
 from cryptography.fernet import Fernet #permite genrar una func que permite cifrar
+from starlette.status import HTTP_204_NO_CONTENT
 
 key=Fernet.generate_key()
 f=Fernet(key)
@@ -30,8 +31,8 @@ def get_user(id: str):
 @user.delete("/users/{id}")
 def delete_user(id: str):
     result = conn.execute(users.delete().where(users.c.id == id))
-    return "deleted"
-    
+    return Response(status_code = HTTP_204_NO_CONTENT)
+
 @user.get("/users")
 def helloworld():
     return "Hola Mundo!!!"
