@@ -17,10 +17,11 @@ def get_users():
 def create_user(user: User):
     new_user = {"name": user.name, "email": user.email}
     new_user["password"] = f.encrypt(user.password.encode("utf-8"))
-    result=conn.execute(users.insert().values(new_user))
-    print(result)
-    return "Hola Mundo!!!"
-
+    result = conn.execute(users.insert().values(new_user))
+    return conn.execute(users.select().where(users.c.id == result.lastrowid)).first()#consulta a la db
+                                                                                  #el id del usuario guardado
+                                                                                  #y devuelve el objeto del
+                                                                                  # objeto q ha guardado      
 @user.get("/users")
 def helloworld():
     return "Hola Mundo!!!"
