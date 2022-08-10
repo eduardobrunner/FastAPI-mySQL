@@ -23,13 +23,15 @@ def create_user(user: User):
                                                                                   #y devuelve el objeto del
                                                                                   # objeto q ha guardado      
 @user.get("/users/{id}")
-def helloworld(id: str):
+def get_user(id: str):
     return conn.execute(users.select().where(users.c.id == id)).first()
 
-@user.get("/users")
-def helloworld():
-    return "Hola Mundo!!!"
-
+#esta funcion dice: en funcion del id ingresado elimina de la tabla al usuario del id correspondiente
+@user.delete("/users/{id}")
+def delete_user(id: str):
+    result = conn.execute(users.delete().where(users.c.id == id))
+    return "deleted"
+    
 @user.get("/users")
 def helloworld():
     return "Hola Mundo!!!"
